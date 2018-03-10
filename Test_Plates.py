@@ -7,9 +7,7 @@ import matplotlib.pyplot as plt
 import cv2
 import numpy as np
 from imutils import paths
-import pandas as pd
 import PossibleChar
-from skimage import morphology
 np.set_printoptions(suppress=True)
 print("[INFO] loading model...")
 model = load_model("modelo/NumerosLetras.hdf5")
