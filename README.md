@@ -21,4 +21,5 @@ usuario$ python Test_Plates.py
 En caso de aparicion de errores verificar la ruta del modelo (linea 13)y las imagenes de prueba (linea 58),
 por medio de su editor favorito.
 
+Para la ejecucion de la interfaz descargar el directorio Interfaz completo y ejecutar el archivo interfaz.py.
 
