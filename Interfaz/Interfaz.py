@@ -17,6 +17,8 @@ import os
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_table_experiments as dt
+from dash.dependencies import Input, Output
 import webbrowser
 class VentanaPrincipal(QMainWindow):
     def __init__ (self):
@@ -188,44 +190,24 @@ class VentanaPrincipal(QMainWindow):
         df=pd.DataFrame(self.Datos)# Create a una tiras de datos en formato de pandas.
         df.to_csv('Predicciones.csv', encoding='utf-8', index=False,header=False)
 
-    def LaunchWebBrowser(self,url):
-        webbrowser.open_new(url)
-        self.app.run_server(debug=False,  processes=1000)
-
-    def generate_table(self,dataframe, max_rows=36):
-        return html.Table(
-            # Header
-            [html.Tr([html.Th("Carater #1"),html.Th("Carater #2"),html.Th("Carater #3"),html.Th("Carater #4"),html.Th("Carater #5"),html.Th("Carater #6")])] +
-
-            # Body
-            [html.Tr([
-                html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
-            ]) for i in range(min(len(dataframe), max_rows))]
-        )
 
     def DashMethod(self):
-
-        df=pd.read_csv('Predicciones.csv',header=None,dtype=str)
+        classLabels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'
+        , 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
         dft = pd.read_csv('Entrenamiento.csv', header=None, dtype=float)
         dft = np.array(dft)
         x = np.arange(0,100,1)
-        self.app = dash.Dash()
-
-        colors = {
-            'background': '#111111',
-            'text': '#7FDBFF'
-        }
-
-        self.app.layout = html.Div(children=[
-            html.H1(children='ESTIMADOR DE MATRICULAS VEHICULARES',
-            style={
-            'textAlign': 'center',"font-family":"verdana"}),
-
-            dcc.Graph(
+        app = dash.Dash(__name__)
+        style={'textAlign': 'center',"font-family":"arial"}
+        ListaB=[{}]
+        app.layout = html.Div(
+        [
+        html.H1('ESTIMADOR DE MATRICULAS VEHICULARES'),
+        dcc.Graph(
                 id='Gráfica de entrenamiento del modelo para la predicción',
                 figure={
                     'data': [
-                        {'x': x, 'y': dft[::][0], 'type': 'line', 'name': u'Train_Loss'},
+                        {'x': x, 'y': dft[::][0], 'type': 'line', 'name': 'Train_Loss'},
                         {'x': x, 'y': dft[::][1], 'type': 'line', 'name': u'Val_Loss'},
                         {'x': x, 'y': dft[::][2], 'type': 'line', 'name': u'Train_Acc'},
                         {'x': x, 'y': dft[::][3], 'type': 'line', 'name': u'Val_Acc'}
@@ -234,11 +216,23 @@ class VentanaPrincipal(QMainWindow):
                         'title': 'Visualizacion del entrenamiento del modelo para la predición de caracteres'
                     }
                 }
-            )
-        ,html.H1(children='Porcentaje de prediccion de cada caracter de la matricula vehicular {}'.format(self.matricula)),
-        self.generate_table(df)],style={
-        "font-family":"arial"})
-        self.LaunchWebBrowser('http://127.0.0.1:8050/')
+            ),
+        html.H1('Porcentaje de prediccion de cada caracter de la matricula vehicular {}'.format(self.matricula)),
+        dt.DataTable(id='datatable-not-working', rows=ListaB),dcc.Interval(id='interval-component',interval=1*1000, n_intervals="10")
+
+        ]
+        ,style=style)
+
+               
+        @app.callback(Output('datatable-not-working',  'rows'),[Input('interval-component', 'n_intervals')])
+        def update_info_table(n):
+            df=pd.read_csv('Predicciones.csv',header=None,dtype=str)
+            df.insert(loc=0,column=6,value=classLabels)
+            ListaB=[([(df[col][Fila]) for col in range (0,7)]) for Fila in range (0,36)]
+            return ListaB
+
+        webbrowser.open_new( "http://127.0.0.1:8050/")
+        app.run_server(debug=False)
 
 
 if __name__ =='__main__':

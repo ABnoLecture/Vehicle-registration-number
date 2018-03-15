@@ -46,14 +46,13 @@ class IdentificadorCaracter(object):
 
         return listOfPossibleChars
 
-    def Conversor(self,ListaA,ListaB):
+    def Conversor(self,ListaA):
         if len(ListaA.shape)>=2:
-            ListaA=ListaA[0][:]
+            ListaA=np.around(ListaA[0][:],5)
         else:
             print('El arrego ya es unidimensional')
         np.set_printoptions(suppress=True)
-        Resultado=[x for x in zip(ListaB,ListaA)  ]
-        return (Resultado)
+        return (ListaA)
 
 
     def Modelo(self,placas):
@@ -101,7 +100,7 @@ class IdentificadorCaracter(object):
             image = image.astype("float") / 255.0
             pred_porc = model.predict(image, batch_size=12)
             Prediccion=pred_porc.astype("float")*100
-            Temporal=self.Conversor(Prediccion,classLabels)
+            Temporal=self.Conversor(Prediccion)
             Predicciones.append(Temporal)
             pred = model.predict(image, batch_size=12).argmax(axis=1)[0]
             predictions.append(classLabels[pred])
