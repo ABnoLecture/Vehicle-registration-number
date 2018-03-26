@@ -15,6 +15,15 @@ Librerias necesarias para la ejecucion del codigo son las siguientes:
 
 -numpy
 
+pip install dash==0.21.0  # The core dash backend
+pip install dash-renderer==0.11.3  # The dash front-end
+pip install dash-html-components==0.9.0  # HTML components
+pip install dash-core-components==0.21.0  # Supercharged components
+pip install dash-table-experiments
+pip install plotly --upgrade  # Plotly graphing library used in examples
+
+
+
 Para ejecutar el codigo lo puede hacer por medio de la terminal.
 usuario$ python Test_Plates.py
 
