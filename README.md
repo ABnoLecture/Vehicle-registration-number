@@ -15,6 +15,9 @@ Librerias necesarias para la ejecucion del codigo son las siguientes:
 
 -numpy
 
+-Dash
+
+Para la instalacion de Dash se deben de ejecutar los siguientes comandos:
 pip install dash==0.21.0  # The core dash backend
 pip install dash-renderer==0.11.3  # The dash front-end
 pip install dash-html-components==0.9.0  # HTML components
@@ -30,5 +33,5 @@ usuario$ python Test_Plates.py
 En caso de aparicion de errores verificar la ruta del modelo (linea 13)y las imagenes de prueba (linea 58),
 por medio de su editor favorito.
 
-Para la ejecucion de la interfaz descargar el directorio Interfaz completo y ejecutar el archivo interfaz.py.
+Para la ejecucion de la interfaz descargar el directorio Interfaz completo y ejecutar el archivo interfaz_Dash.py.
 
