@@ -18,12 +18,18 @@ Librerias necesarias para la ejecucion del codigo son las siguientes:
 -Dash
 
 Para la instalacion de Dash se deben de ejecutar los siguientes comandos:
-pip install dash==0.21.0  # The core dash backend
-pip install dash-renderer==0.11.3  # The dash front-end
-pip install dash-html-components==0.9.0  # HTML components
-pip install dash-core-components==0.21.0  # Supercharged components
-pip install dash-table-experiments
-pip install plotly --upgrade  # Plotly graphing library used in examples
+
+*pip install dash==0.21.0  # The core dash backend
+
+*pip install dash-renderer==0.11.3  # The dash front-end
+
+*pip install dash-html-components==0.9.0  # HTML components
+
+*pip install dash-core-components==0.21.0  # Supercharged components
+
+*pip install dash-table-experiments
+
+*pip install plotly --upgrade  # Plotly graphing library used in examples
 
 
 
