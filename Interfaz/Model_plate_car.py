@@ -109,4 +109,4 @@ class IdentificadorCaracter(object):
             cv2.putText(Reescalada,classLabels[pred], (X+2, Y-5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255,255), 2)
         Reescalada=cv2.resize(Reescalada,(Placa.shape[1],Placa.shape[0]), interpolation = cv2.INTER_CUBIC)
         cv2.imwrite(str('image.jpg'), Reescalada)
-        return predictions,Predicciones
+        return predictions,Predicciones,Reescalada
