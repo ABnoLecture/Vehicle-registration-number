@@ -6,7 +6,6 @@ import base64
 import sys
 import numpy as np
 import random
-import datetime
 import Model_plate_car
 import cv2
 import pandas as pd
